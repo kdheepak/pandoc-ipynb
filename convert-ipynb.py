@@ -1,9 +1,10 @@
 #!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 from __future__ import print_function
 
 import os
 import sys
-from pandocfilters import toJSONFilter, Str, Para
+from pandocfilters import toJSONFilter, Str, Para, Div
 import subprocess
 from subprocess import check_output
 from subprocess import Popen, PIPE
@@ -76,14 +77,18 @@ def convert_notebook_to_para(file_name):
     return(para)
 
 def notebook_convert(key, value, format, meta):
+    sys.stderr.write("key = "+str(key)+"\t")
+    sys.stderr.write("value = "+str(type(value))+"\t")
+    sys.stderr.write(str(value)+"\n")
     if key == 'Para':
-        sys.stderr.write("Printing Para " + str(value) + "\n")
-        string_value = value[0]['c']
-        if string_value[0:2] == "{%" and string_value[-2:] == "%}" and '.ipynb' in string_value:
-            sys.stderr.write("Found a notebook!\n")
-            file_name = string_value[2:-2]
-            value[0]['c'] = convert_notebook_to_para(file_name)
-        return Para(value)
+        # sys.stderr.write("Printing Para " + str(value) + "\n")
+        #string_value = value[0]['c']
+        #if string_value[0:2] == "{%" and string_value[-2:] == "%}" and '.ipynb' in string_value:
+        #    #sys.stderr.write("\n\nFound a notebook!\n\n")
+        #    file_name = string_value[2:-2]
+        #    value[0]['c'] = convert_notebook_to_para(file_name)
+
+        return value
 
 if __name__ == "__main__":
     toJSONFilter(notebook_convert)
