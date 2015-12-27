@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
+"""
+Convert notebooks to markdown to use with pelican
+"""
+
 from __future__ import print_function
 
 import os
