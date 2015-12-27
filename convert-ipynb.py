@@ -77,19 +77,19 @@ def convert_notebook_to_para(file_name):
     return(para)
 
 def notebook_convert(key, value, format, meta):
-    sys.stderr.write("key = "+str(key)+"\t")
-    sys.stderr.write("value = "+str(type(value))+"\t")
-    sys.stderr.write(str(value)+"\n")
-    if key == 'Para':
-        # sys.stderr.write("Printing Para " + str(value) + "\n")
-        #string_value = value[0]['c']
-        #if string_value[0:2] == "{%" and string_value[-2:] == "%}" and '.ipynb' in string_value:
-        #    #sys.stderr.write("\n\nFound a notebook!\n\n")
-        #    file_name = string_value[2:-2]
-        #    value[0]['c'] = convert_notebook_to_para(file_name)
 
-        return value
+    if key == 'Div':
+        sys.stderr.write("key = "+str(key)+"\t")
+        sys.stderr.write("value = "+str(type(value))+"\t")
+        sys.stderr.write(unicode(value).encode('ascii', 'ignore')+'\n')
 
+    if key == 'Para' and value[0]['c'][0:2] == '{%' and value[0]['c'][-2:] == '%}':
+        sys.stderr.write("Inside notebook convert\n")
+        return Div([u'notebook', [u'border-box-sizing'], [[u'tabindex', u'-1']]],
+[{u'c': [[u'notebook-container', [u'container'], []], [{u'c': [[u'', [u'cell', u'border-box-sizing', u'text_cell', u'rendered'], []], [{u'c': [[u'', [u'prompt', u'input_prompt'], []], []], u't': u'Div'}, {u'c': [[u'', [u'inner_cell'], []], [{u'c': [[u'', [u'text_cell_render', u'border-box-sizing', u'rendered_html'], []], [{u'c': [1, [u'Notebook', [], []], [{u'c': u'Notebook', u't': u'Str'}, {u'c': [[{u'c': u'\xb6', u't': u'Str'}], [u'#Notebook', u'']], u't': u'Link'}]], u't': u'Header'}]], u't': u'Div'}]], u't': u'Div'}]], u't': u'Div'}, {u'c': [[u'', [u'cell', u'border-box-sizing', u'code_cell', u'rendered'], []], [{u'c': [[u'', [u'input'], []], [{u'c': [[u'', [u'prompt', u'input_prompt'], []], [{u'c': [{u'c': u'In\xa0[2]:', u't': u'Str'}], u't': u'Plain'}]], u't': u'Div'}, {u'c': [[u'', [u'inner_cell'], []], [{u'c': [[u'', [u'input_area'], []], [{u'c': [[u'', [u'highlight', u'hl-ipython2'], []], [{u'c': [[u'', [], []], u"print('Hello')"], u't': u'CodeBlock'}]], u't': u'Div'}]], u't': u'Div'}]], u't': u'Div'}]], u't': u'Div'}, {u'c': [[u'', [u'output_wrapper'], []], [{u'c': [[u'', [u'output'], []], [{u'c': [[u'', [u'output_area'], []], [{u'c': [[u'', [u'prompt'], []], []], u't': u'Div'}, {u'c': [[u'', [u'output_subarea', u'output_stream', u'output_stdout', u'output_text'], []], [{u'c': [[u'', [], []], u'Hello'], u't': u'CodeBlock'}]], u't': u'Div'}]], u't': u'Div'}]], u't': u'Div'}]], u't': u'Div'}]], u't': u'Div'}, {u'c': [[u'', [u'cell', u'border-box-sizing', u'text_cell', u'rendered'], []], [{u'c': [[u'', [u'prompt', u'input_prompt'], []], []], u't': u'Div'}, {u'c': [[u'', [u'inner_cell'], []], [{u'c': [[u'', [u'text_cell_render', u'border-box-sizing', u'rendered_html'], []], [{u'c': [{u'c': u'Testing', u't': u'Str'}, {u'c': [], u't': u'Space'}, {u'c': u'markdown', u't': u'Str'}, {u'c': [], u't': u'Space'}, {u'c': u'cell', u't': u'Str'}], u't': u'Para'}]], u't': u'Div'}]], u't': u'Div'}]], u't': u'Div'}]], u't': u'Div'}]
+)
+        # return Str("Hello")
+    
 if __name__ == "__main__":
     toJSONFilter(notebook_convert)
 
