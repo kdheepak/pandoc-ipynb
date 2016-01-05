@@ -1,6 +1,6 @@
 
 Testing
 
-{%test-notebook.ipynb%}
+{% notebook test-notebook.ipynb %}
 
 Another sentence
