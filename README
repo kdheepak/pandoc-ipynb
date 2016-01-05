@@ -1,0 +1,17 @@
+This pandoc filter allows you to use a liquid tag style statement to link a jupyter notebook into a pelican blog with pandoc as the reader.
+
+# Usage Example
+
+> {% notebook power.ipynb %}
+
+The notebook must be placed in `content/notebooks/`
+
+The filter should be added to `PANDOC_ARGS`
+
+    PANDOC_ARGS = [
+        ...
+      '--filter=./convert-ipynb.py',
+        ...
+    ]
+
+The filter must be placed in the root directory of the blog repository
